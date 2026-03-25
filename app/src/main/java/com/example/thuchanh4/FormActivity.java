@@ -3,6 +3,7 @@ package com.example.thuchanh4;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.*;
 import com.example.thuchanh4.Examinee;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -65,11 +66,15 @@ public class FormActivity extends AppCompatActivity{
                 return;
             }
 
-            Examinee ex = new Examinee(Id,Name,Math,Physic,Chemical);
+            Examinee ex = new Examinee(Id,Name,"",Math,Physic,Chemical);
             Intent sendEx = new Intent();
             sendEx.putExtra("ADD_EXAMINEE",ex);
             setResult(RESULT_OK, sendEx);
             finish();
+        });
+        avatar.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            imagePicker.launch(intent);
         });
     }
     @Override

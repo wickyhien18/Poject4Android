@@ -24,12 +24,14 @@ public class MainActivity extends AppCompatActivity {
     private Button add, show;
     private ArrayAdapter<Examinee> examineeAdapter;
     private ArrayList<Examinee> fullListExaminee = new ArrayList<>();
+    private DbHelper dbHelper;
     private ActivityResultLauncher<Intent> examineePicker = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result-> {
                 if (result.getResultCode() == MainActivity.RESULT_OK && result.getData() != null) {
                     Examinee examineeGet = (Examinee) result.getData().getSerializableExtra("ADD_EXAMINEE");
                     if (examineeGet != null) {
+                        dbHelper.insert(examineeGet);
                         fullListExaminee.add(examineeGet);
                     }
                     examineeAdapter.notifyDataSetChanged();

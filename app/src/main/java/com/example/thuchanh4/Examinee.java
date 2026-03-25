@@ -5,13 +5,15 @@ import java.io.Serializable;
 public class Examinee implements Serializable {
     private String Id;
     private String FullName;
+    private String Image;
     private float Math, Physic, Chemical;
-    public Examinee(String id, String name, float math, float physic, float chemical) {
+    public Examinee(String id, String name,String image, float math, float physic, float chemical) {
         this.Id = id;
         this.FullName = name;
         this.Math = math;
         this.Physic = physic;
         this.Chemical = chemical;
+        this.Image = image;
     }
 
     @Override
@@ -66,4 +68,11 @@ public class Examinee implements Serializable {
         return getSum() / 3;
     }
 
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
 }
