@@ -1,11 +1,14 @@
 package com.example.thuchanh4;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.*;
 import com.example.thuchanh4.Examinee;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.Toolbar;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +21,17 @@ public class FormActivity extends AppCompatActivity{
     private EditText id, name,math, physic, chemical;
     private Toolbar toolbar;
     private FloatingActionButton add;
+    private ImageView avatar;
+    private Uri currentAvatar;
+    private ActivityResultLauncher<Intent> imagePicker = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == FormActivity.RESULT_OK && result.getData() != null) {
+                    currentAvatar = result.getData().getData();
+                    avatar.setImageURI(currentAvatar);
+                }
+            }
+    );
 
     private void Init() {
         id = findViewById(R.id.editTextId);
@@ -27,6 +41,7 @@ public class FormActivity extends AppCompatActivity{
         chemical = findViewById(R.id.editTextChemical);
         toolbar = findViewById(R.id.toolbarForm);
         add = findViewById(R.id.buttonAddExaminee);
+        avatar = findViewById(R.id.imageViewForm);
     }
 
     private void Listen() {
